@@ -47,7 +47,7 @@ def send_telegram(text, audio_bytes=None, caller=""):
             data={"chat_id": TELEGRAM_CHAT_ID, "caption": "🎙 Запись"},
             files={"audio": ("call.mp3", audio_bytes, "audio/mpeg")}, timeout=30)
 
-@app.route("/webhook", methods=["POST"])
+@app.route("/webhook", methods=["POST", "GET"])
 def webhook():
     data = request.form.to_dict() or request.json or {}
     event  = data.get("event", "")
