@@ -48,6 +48,13 @@ def send_telegram(text, audio_bytes=None, caller=""):
             files={"audio": ("call.mp3", audio_bytes, "audio/mpeg")}, timeout=30)
 
 @app.route("/webhook", methods=["POST", "GET"])
+def zd_echo_check():
+    zd_echo = request.args.get("zd_echo", "")
+    if zd_echo:
+        return zd_echo
+    return webhook()
+
+@app.route("/webhook_real", methods=["POST"])
 def webhook():
     data = request.form.to_dict() or request.json or {}
     event  = data.get("event", "")
